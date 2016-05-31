@@ -7,6 +7,9 @@ import java.util.List;
 
 /**
  * Created by sidawei on 16/4/5.
+ *
+ * 全表数据遍历模版类
+ * TODO 未完成
  */
 public class IteratorAllTableTemplate {
 

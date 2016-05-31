@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 路由计算的结果,执行计划,描述了一个sql
+ */
 public class ExecutePlan {
 
     /**

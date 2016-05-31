@@ -5,6 +5,8 @@ import com.alibaba.druid.wall.spi.WallVisitorUtils;
 
 /**
  * Created by sidawei on 16/3/17.
+ *
+ * 永真 永假条件判断
  */
 public class BooleanUtil {
     /**

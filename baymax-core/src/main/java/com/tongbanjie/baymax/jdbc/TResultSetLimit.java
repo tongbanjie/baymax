@@ -9,6 +9,8 @@ import java.util.List;
 
 /**
  * Created by sidawei on 16/4/11.
+ *
+ * 带limit的抽象结果集
  */
 public abstract class TResultSetLimit extends TResultSet {
 

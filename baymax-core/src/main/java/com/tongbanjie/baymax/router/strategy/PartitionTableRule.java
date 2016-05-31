@@ -4,6 +4,9 @@ import java.util.List;
 
 /**
  * Created by sidawei on 16/4/2.
+ *
+ * 一个表的分区规则 包含：
+ * 分区列,分区函数
  */
 public class PartitionTableRule {
 

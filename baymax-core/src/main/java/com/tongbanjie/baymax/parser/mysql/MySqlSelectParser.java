@@ -26,6 +26,8 @@ import java.util.Map;
 
 /**
  * Created by sidawei on 16/1/15.
+ *
+ * select语句解析器
  */
 public class MySqlSelectParser extends MySqlSqlParser {
 

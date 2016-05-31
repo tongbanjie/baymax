@@ -4,8 +4,12 @@ import java.util.List;
 
 /**
  * Created by sidawei on 16/3/20.
+ *
+ * 分区表配置的基本信息
  */
 public class PartitionTableMetaData {
+
+    // 以下属性通过配置注入
 
     /*---------------------------------------------------------------*/
 
@@ -19,7 +23,10 @@ public class PartitionTableMetaData {
 
     protected PartitionTableNodeMapping nodeMapping; //表名到数据库的映射
 
+    // 以下属性通过注入的属性计算得到
+
     /*---------------------------------------------------------------*/
+
     protected List<PartitionColumn> columns;    // 分区键
 
     protected String[] partitionColumns;		// 分区键

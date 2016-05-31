@@ -1,6 +1,6 @@
 package mybatis;
 
-import com.tbjfund.framework.tpa.TpaSupportDao;
+import mybatis.dao.TradeOrderDao;
 import mybatis.vo.TradeOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,11 +18,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class MybatisTest {
 
 	@Autowired
-	private TpaSupportDao dao;
-	
-	/**
-	 * 测试根据ID查询单条
-	 */
+	private TradeOrderDao dao;
+
 	@Test
 	public void testInsert(){
 		System.out.println("--test start--");

@@ -8,6 +8,8 @@ import com.tongbanjie.baymax.utils.StringUtil;
 
 /**
  * Created by sidawei on 16/1/27.
+ *
+ * 表名替换,逻辑表名替换为真实表名
  */
 public class ReplaceTableNameVisitor extends MySqlASTVisitorAdapter {
 

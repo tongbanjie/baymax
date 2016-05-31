@@ -2,6 +2,7 @@ package com.tongbanjie.baymax.parser.mysql.visitor;
 
 import com.alibaba.druid.sql.ast.SQLName;
 import com.alibaba.druid.sql.ast.expr.SQLBinaryOpExpr;
+import com.alibaba.druid.sql.ast.expr.SQLInListExpr;
 import com.alibaba.druid.sql.ast.statement.SQLExprTableSource;
 import com.alibaba.druid.sql.ast.statement.SQLSelectStatement;
 import com.alibaba.druid.sql.ast.statement.SQLUpdateStatement;
@@ -50,12 +51,8 @@ public class SqlVisitor extends MySqlSchemaStatVisitor {
 	public boolean visit(SQLBinaryOpExpr x) {
         x.getLeft().setParent(x);
         x.getRight().setParent(x);
-
         switch (x.getOperator()) {
             case Equality:
-            case LessThanOrEqualOrGreaterThan:
-            case Is:
-            case IsNot:
                 // a=1 and a=2 or a=3
                 handleCondition(x.getLeft(), x.getOperator().name, x.getRight());
                 // a=b 转化为 b=a
@@ -66,13 +63,6 @@ public class SqlVisitor extends MySqlSchemaStatVisitor {
             case BooleanOr:
                 this.hasOrCondition = true;
                 break;
-            case Like:
-            case NotLike:
-            case NotEqual:
-            case GreaterThan:
-            case GreaterThanOrEqual:
-            case LessThan:
-            case LessThanOrEqual:
             default:
                 break;
         }

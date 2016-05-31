@@ -1,5 +1,8 @@
 package com.tongbanjie.baymax.jdbc.model;
 
+/**
+ * sql执行命令
+ */
 public class ExecuteCommand {
 	
 	private ExecuteMethod method;	// 需要执行的方法

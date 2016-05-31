@@ -11,9 +11,16 @@ import java.util.*;
 
 /**
  * Created by sidawei on 16/3/20.
+ *
+ * 分区规则计算的入口,对外层提供了路由计算的api,计算需要的一些其他参数继承自父类.
  */
 public class PartitionTable extends PartitionTableMetaData{
 
+    /**
+     * 外层路由计算的入口,传入sql中提取的计算单元,返回当前这个分区表配置使用此参数计算后的路由结果.
+     * @param calculateUnit
+     * @return
+     */
     public List<TargetTableEntity> execute(CalculateUnit calculateUnit) {
         // and 相连的条件
         Set<ConditionUnit/*column value*/> conditionUnits = calculateUnit.getTablesAndConditions().get(getLogicTableName());
@@ -56,33 +63,24 @@ public class PartitionTable extends PartitionTableMetaData{
         return targetList;
     }
 
-    private void executeRule(List<TargetTableEntity> targetList, PartitionFunction rule, PartitionColumn column, Object value){
+    private void executeRule(List<TargetTableEntity> targetList, PartitionFunction function, PartitionColumn column, Object value){
         if (column.getProcess() != null){
             value = column.getProcess().apply(value);
         }
-        TargetTableEntity target = executeRule(rule, column.getName(), value);
+        TargetTableEntity target = executeRule(function, value);
         if (target != null && target.getTargetDB() == null && target.getTargetTable() != null){
-            throw new BayMaxException(target.getTargetTable() + "没有对应的库");
+            throw new BayMaxException(target.getTargetTable() + "根据表名后缀找不到对应的库 请检查你的配置");
         }
         if (target != null && target.getTargetDB() != null && target.getTargetTable() != null){
             targetList.add(target);
         }
     }
 
-    private TargetTableEntity executeRule(PartitionFunction rule, String column, Object value) {
-
-        String targetDB = null;
-        String targetTable = null;
-
-        Object ruleResult = rule.execute(String.valueOf(value), null);
-        if (Integer.class == ruleResult.getClass() || Integer.class.isAssignableFrom(ruleResult.getClass())) {
-            // Integer
-            String suffix = super.getSuffix((Integer) ruleResult);
-            targetTable = super.format(suffix);
-            targetDB = super.nodeMapping.getMapping().get(suffix);
-        } else {
-            throw new BayMaxException("is the express can return integer only!" + rule);
-        }
+    private TargetTableEntity executeRule(PartitionFunction function, Object value) {
+        Integer ruleResult = function.execute(String.valueOf(value), null);
+        String suffix = super.getSuffix(ruleResult);
+        String targetTable = super.format(suffix);
+        String targetDB = super.nodeMapping.getMapping().get(suffix);
         return new TargetTableEntity(targetDB, targetTable);
     }
 

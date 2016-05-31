@@ -13,6 +13,8 @@ import java.util.Map;
 
 /**
  * Created by sidawei on 16/1/25.
+ *
+ * sql中提取到的条件转换为路由计算单元
  */
 public class CalculateUnitUtil {
 
@@ -43,30 +45,32 @@ public class CalculateUnitUtil {
                     String columnName = StringUtil.removeBackquote(condition.getColumn().getName());
                     String tableName = StringUtil.removeBackquote(condition.getColumn().getTable());
 
-                // 获取真实表名
-                tableName = getRealTableName(tableAliasMap, tableName);
+                    // 获取真实表名
+                    tableName = getRealTableName(tableAliasMap, tableName);
 
-                if(tableAliasMap != null && tableAliasMap.get(tableName) == null) {
-                    // 子查询的别名条件忽略掉,不参数路由计算，否则后面找不到表
-                    // 虚拟表直接忽略 select x from (select xxxx) u;
-                    // 忽略u
-                    continue;
-                }
+                    if(tableAliasMap != null && tableAliasMap.get(tableName) == null) {
+                        // 子查询的别名条件忽略掉,不参数路由计算，否则后面找不到表
+                        // 虚拟表直接忽略 select x from (select xxxx) u;
+                        // 忽略u
+                        continue;
+                    }
 
-                String operator = condition.getOperator();
+                    String operator = condition.getOperator();
 
-                //只处理between ,in和=3中操作符
-//                    if(operator.equals("between")) {
-//                        RangeValue rv = new RangeValue(values.get(0), values.get(1), RangeValue.EE);
-//                        CalculateUnit.addShardingExpr(tableName.toUpperCase(), columnName, rv);
-//                    } else
-                //|| operator.toLowerCase().equals("in")
+                    //只处理between ,in和=3中操作符
+    //                    if(operator.equals("between")) {
+    //                        RangeValue rv = new RangeValue(values.get(0), values.get(1), RangeValue.EE);
+    //                        CalculateUnit.addShardingExpr(tableName.toUpperCase(), columnName, rv);
+    //                    } else
+                    //|| operator.toLowerCase().equals("in")
 
                     // between暂时不支持 需要枚举出between之间的值
-                    // in暂时不支持 a in (1,2,3)要转化为a=1 or a=2 or a=3会导致计算单元的增加
                     if(operator.equals("=")){
                         //只处理=号和in操作符,其他忽略
                         calculateUnit.addCondition(ConditionUnit.buildConditionUnit(tableName, columnName, values.toArray(), ConditionUnitOperator.EQUAL));
+                    }else if (operator.equalsIgnoreCase("in")){
+                        // 对In的支持
+                        calculateUnit.addCondition(ConditionUnit.buildConditionUnit(tableName, columnName, values.toArray(), ConditionUnitOperator.IN));
                     }
                 }
             }

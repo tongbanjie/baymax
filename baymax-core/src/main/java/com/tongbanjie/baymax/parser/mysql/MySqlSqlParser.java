@@ -21,10 +21,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 抽象sql解析器
+ */
 public abstract class MySqlSqlParser implements SqlParser {
 
     protected SQLStatementParser        parser;
-    protected SqlVisitor visitor;
+    protected SqlVisitor                visitor;
     protected SQLStatement              statement;
     protected String                    sql;
     protected List<Object>              parameters;

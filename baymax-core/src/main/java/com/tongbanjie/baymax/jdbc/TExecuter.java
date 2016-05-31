@@ -24,6 +24,8 @@ import java.util.Map;
 
 /**
  * Created by sidawei on 16/1/29.
+ *
+ * sql最终执行核心
  */
 public class TExecuter {
 
@@ -167,6 +169,9 @@ public class TExecuter {
     private Connection getConnection(TrargetSqlEntity target) throws SQLException {
         String      targetPartition = target.getPartition();
         DataSource  targetDataSource = targetPartition == null ? dataSource.getDefaultDataSource() : dataSource.getDataSourceByName(targetPartition);
+        if (targetDataSource == null){
+            throw new BayMaxException("没有找到对应的数据源实例 请检查配置:" + targetPartition);
+        }
         Connection  conn = openedConnection.get(targetDataSource);	// 尝试获取一个已经打开的Connection
         if (conn == null) {
             conn = targetDataSource.getConnection();				// 打开一个Connection

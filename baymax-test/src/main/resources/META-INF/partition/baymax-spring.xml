@@ -8,8 +8,10 @@
 	                       http://baymax.tongbanjie.com/schema/baymax-3.0.xsd">
 
 
+    <!-- 开启baymax -->
     <baymax:context />
 
+    <!--  分表配置 -->
     <baymax:table tableName="t_order" namePatten="t_order_{0}">
 
         <baymax:columns>
@@ -17,10 +19,12 @@
             <baymax:column name="user_id"   process-ref="subRight1"/>
         </baymax:columns>
 
-        <baymax:function class="com.tongbanjie.baymax.router.strategy.function.ELFunction">
-            <property name="expression" value="value"/>
+        <!-- 简化测试 取最后一位％4 作为表后缀 -->
+        <baymax:function class="com.tongbanjie.baymax.router.strategy.function.ModFunction">
+            <property name="mod" value="4"/>
         </baymax:function>
 
+        <!-- 指定 每个数据库上分别有哪些表后缀 -->
         <baymax:nodeMapping class="com.tongbanjie.baymax.router.strategy.SimpleTableNodeMapping">
             <baymax:node>p1:0,1</baymax:node>
             <baymax:node>p2:2,3</baymax:node>
@@ -28,13 +32,10 @@
 
     </baymax:table>
 
-    <!-- 列的转换函数 -->
+    <!-- 列的转换函数 为了做多列路由 可选 -->
     <baymax:process name="subRight1" class="com.tongbanjie.baymax.support.column.SubRightColumnProcess">
         <property name="length" value="1"/>
     </baymax:process>
 
-<!--
-    <bean name="VirtualPartitionTable" class="com.tongbanjie.baymax.router.strategy.function.VirtualModFunction128_8"/>
--->
 
 </beans>

@@ -4,6 +4,8 @@ import com.tongbanjie.baymax.parser.model.SqlType;
 
 /**
  * Created by sidawei on 16/1/27.
+ *
+ * 快速判断sql的类型
  */
 public class SqlTypeUtil {
 

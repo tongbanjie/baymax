@@ -5,12 +5,18 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * sql解析结果
+ */
 public class ParseResult {
 
+    /**
+     * 路由计算单元
+     */
     private List<CalculateUnit> calculateUnits;
 	
 	/**
-	 * （共享属性）
+	 * 原始sql
 	 */
 	private String sql = "";
 

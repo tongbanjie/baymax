@@ -13,6 +13,8 @@ import java.util.List;
 
 /**
  * Created by sidawei on 16/1/15.
+ *
+ * update解析
  */
 public class MySqlUpdateParser extends MySqlSqlParser {
 
@@ -24,6 +26,9 @@ public class MySqlUpdateParser extends MySqlSqlParser {
         super.changeSql(result, plan);
     }
 
+    /**
+     * 判断某个列是否能被update,分区表的分区列是不能被update的.
+     */
     protected void checkUpdateColumn(){
         MySqlUpdateStatement update = (MySqlUpdateStatement)statement;
         String tableName = StringUtil.removeBackquote(update.getTableName().getSimpleName());

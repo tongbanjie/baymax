@@ -4,6 +4,8 @@ import com.tongbanjie.baymax.router.ColumnProcess;
 
 /**
  * Created by sidawei on 16/3/20.
+ *
+ * 截取值的前几位
  */
 public class SubLeftColumnProcess implements ColumnProcess {
 

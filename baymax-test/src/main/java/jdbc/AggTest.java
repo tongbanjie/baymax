@@ -11,6 +11,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * 聚合函数测试
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:META-INF/spring/spring-context.xml")
 public class AggTest {

@@ -11,7 +11,7 @@ import java.util.TreeMap;
 /**
  * Created by sidawei on 16/4/2.
  *
- * 一致性Hash
+ * 一致性Hash的分区函数实现
  */
 public class MurmurHashFunction implements PartitionFunction{
 
@@ -54,7 +54,7 @@ public class MurmurHashFunction implements PartitionFunction{
     }
 
     @Override
-    public Integer execute(String columnValue, Map<String, Object> extention) {
+    public Integer execute(String columnValue, Map<String, Object> extension) {
         SortedMap<Integer, Integer> tail = bucketMap.tailMap(Hash.hashUnencodedChars(columnValue));
         if (tail.isEmpty()) {
             return bucketMap.get(bucketMap.firstKey());

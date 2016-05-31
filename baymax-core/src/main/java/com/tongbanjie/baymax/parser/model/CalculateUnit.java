@@ -1,8 +1,9 @@
 package com.tongbanjie.baymax.parser.model;
 
-import com.tongbanjie.baymax.exception.BayMaxException;
-
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by sidawei on 16/1/26.

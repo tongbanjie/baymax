@@ -12,21 +12,44 @@ public class TrargetSqlEntity {
 	
 	/**
 	 * 如果partition == null 表示在默认分区上执行
+     *
+     * 取值DataSourceGroup.identity
 	 */
 	private String partition;
-	
+
+    /**
+     * 逻辑表名 sql 中使用的表名 实际没有这个表
+     */
 	private String logicTableName;
-	
+
+    /**
+     * 目标表名 如 order_12
+     */
 	private String targetTableName;
-	
+
+    /**
+     * 原始的sql语句
+     */
 	private String originalSql;
-	
+
+    /**
+     * 改写后的sql语句(表名,limit,聚合函数等)
+     */
 	private String targetSql;
-	
+
+    /**
+     * sql类型
+     */
 	private SqlType sqlType;
 
+    /**
+     * 需要改写的limit值
+     */
     private int limitStart;
 
+    /**
+     * 需要改写的limit值
+     */
     private int limitSize;
 	
 	@Override

@@ -9,6 +9,8 @@ import com.tongbanjie.baymax.parser.mysql.MySqlUpdateParser;
 
 /**
  * Created by sidawei on 16/1/27.
+ *
+ * sql解析器工厂,根据不同的sql类型返回不同的解析器.
  */
 public class SqlParserFactory {
 

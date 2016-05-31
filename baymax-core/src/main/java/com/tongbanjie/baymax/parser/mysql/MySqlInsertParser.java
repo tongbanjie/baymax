@@ -22,6 +22,8 @@ import java.util.List;
 
 /**
  * Created by sidawei on 16/1/15.
+ *
+ * insert解析器,insert必须指定列名
  */
 public class MySqlInsertParser extends MySqlSqlParser {
 

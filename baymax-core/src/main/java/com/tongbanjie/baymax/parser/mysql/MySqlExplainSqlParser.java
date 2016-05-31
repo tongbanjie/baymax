@@ -10,6 +10,9 @@ import com.tongbanjie.baymax.parser.model.SqlType;
 import com.tongbanjie.baymax.parser.utils.SqlTypeUtil;
 import com.tongbanjie.baymax.router.model.ExecutePlan;
 
+/**
+ * explan命令解析器
+ */
 public class MySqlExplainSqlParser  implements SqlParser {
 	
 	private SqlParser sqlParser;

@@ -23,7 +23,7 @@ public class SelectTest {
     @Test
     public void test() throws SQLException, InterruptedException{
         // or
-        //test("select order_id, user_id from t_order where user_id = 1 or user_id = 2");
+        test("select order_id, user_id from t_order where user_id = 1 or user_id = 2");
 
         // (or)and
         //test("select order_id, user_id from t_order where (user_id = 1 or user_id = 2) and product_name='prodtct1' ");
@@ -51,13 +51,20 @@ public class SelectTest {
         //test("select sum(user_id) from t_order");
 
         // limit agg group by order by
-        test("select user_id,sum(user_id) from t_order group by user_id order by user_id");
-        test("select user_id,sum(user_id) from t_order group by user_id order by user_id limit 3,2");
+        //test("select user_id,sum(user_id) from t_order group by user_id order by user_id");
+        //test("select user_id,sum(user_id) from t_order group by user_id order by user_id limit 3,2");
+
+        // in
+        test("select * from t_order where user_id in (2, 3)");
+
 
     }
 
     public void test(String sql) throws SQLException {
+        System.out.println("开始");
+        long start = System.currentTimeMillis();
         new Jdbc(dataSource).executeSelect(sql).printSet().close();
+        System.out.println("耗时:" + (System.currentTimeMillis() - start));
     }
 
 }

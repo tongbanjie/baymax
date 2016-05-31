@@ -7,15 +7,27 @@ import java.util.List;
  * 计算条件 代表 column = value
  */
 public class ConditionUnit {
+    // 表名
     private String table;
+    // 列名
     private String column;
+    // 字段的值 有可能是in等 所以会有多个
     private List<String> values;
+    // 条件操作符
     private ConditionUnitOperator operator;
 
     public ConditionUnit(){
 
     }
 
+    /**
+     * 构建一个条件
+     * @param table0
+     * @param column0
+     * @param values0
+     * @param operator0
+     * @return
+     */
     public static ConditionUnit buildConditionUnit(String table0, String column0, Object[] values0, ConditionUnitOperator operator0){
         if (values0 == null || values0.length == 0){
             return null;

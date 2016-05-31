@@ -10,6 +10,8 @@ import java.sql.SQLException;
 
 /**
  * Created by sidawei on 16/1/30.
+ *
+ * jdbc测试工具类
  */
 public class Jdbc {
 

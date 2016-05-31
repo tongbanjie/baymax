@@ -9,9 +9,15 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by sidawei on 16/4/2.
+ *
+ * @See com.tongbanjie.baymax.router.strategy.PartitionTableNodeMapping
  */
 public class SimpleTableNodeMapping implements PartitionTableNodeMapping{
 
+    /**
+     * 注入配置 格式 分区名:表后缀1,表后缀2
+     * 例子 partition1:00,01,02
+     */
     private List<String> config;
 
     /*---------------------------------------------------------------*/

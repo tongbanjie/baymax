@@ -5,8 +5,12 @@ package com.tongbanjie.baymax.utils;
  */
 public class StringUtil {
 
+    /**
+     * 删除名字中的`tablename`和'value'
+     * @param str
+     * @return
+     */
     public static String removeBackquote(String str){
-        //删除名字中的`tablename`和'value'
         if (str != null && str.length() > 0) {
             StringBuilder sb = new StringBuilder(str);
             if (sb.charAt(0) == '`'||sb.charAt(0) == '\'') {

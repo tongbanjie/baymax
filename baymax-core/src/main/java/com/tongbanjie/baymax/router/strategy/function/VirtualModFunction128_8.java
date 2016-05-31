@@ -4,6 +4,8 @@ package com.tongbanjie.baymax.router.strategy.function;
  * Created by sidawei on 16/4/2.
  *
  * suffix: [0, 16, 32, 48, 64, 80, 96, 112]
+ *
+ * @See com.tongbanjie.baymax.router.strategy.function.VirtualModFunction
  */
 public class VirtualModFunction128_8 extends VirtualModFunction{
 

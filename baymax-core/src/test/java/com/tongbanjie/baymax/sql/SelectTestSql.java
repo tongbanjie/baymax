@@ -45,6 +45,12 @@ public interface SelectTestSql {
     String union1 = "(select a from table1 where a = 1) union (select a from table2 where b = 2)";
     String union2 = "(select a from table1 where a = 1) union (select a from table2 where b = 2 or c = 3)";
 
+    // in
+    String in1 = "select a from table1 where (a in (1,2,3) or b = 1) and c = 1";
+
+    // between
+    String b1 = "select a from table1 where a = 1 and (b between 2 and ?)";
+
 
 
 

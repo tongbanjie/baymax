@@ -19,8 +19,8 @@ public class ManualRoute {
 
     /**
      * 返回路由结果
-     * @param tableName
-     * @param parameters
+     * @param tableName 逻辑表名
+     * @param parameters 路由参数 分区表配置中,分区列对应的值
      * @return
      */
     public static List<TargetTableEntity> route(String tableName, Map<String, Object> parameters){
@@ -40,7 +40,7 @@ public class ManualRoute {
 
     /**
      *
-     * 返回所有的表
+     * 获取逻辑表名对应的所有真实表名,用于遍历等场景
      * @param tableName
      * @return
      */

@@ -60,11 +60,10 @@
 	</bean>
 
 	<!-- myBatis文件 -->
-	<bean id="sqlSessionFactory" class="com.tbjfund.framework.tpa.TpaSqlSessionFactoryBean">
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="configLocation" value="classpath:META-INF/mybatis/mybatis-configuration.xml" />
 		<property name="mapperLocations" value="classpath*:META-INF/mybatis/tables/*.xml" />
 		<property name="dataSource" ref="multipleDataSource" />
-        <property name="scanPackage" value="mybatis"/>
 	</bean>
 	
 	<!-- 路由配置文件 -->

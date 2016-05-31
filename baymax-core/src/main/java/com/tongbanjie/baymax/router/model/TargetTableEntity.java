@@ -1,9 +1,19 @@
 package com.tongbanjie.baymax.router.model;
 
+/**
+ * 目标表
+ */
 public class TargetTableEntity {
 
+    /**
+     * 目标数据库
+     * 取值DataSourceGroup.identity
+     */
     private String targetDB;
 
+    /**
+     * 目标表名
+     */
     private String targetTable;
 
     public TargetTableEntity(String targetDB, String targetTable) {

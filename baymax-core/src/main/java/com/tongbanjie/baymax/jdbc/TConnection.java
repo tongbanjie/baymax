@@ -19,13 +19,19 @@ public class TConnection extends UnsupportedConnectionAdapter {
 	private final static Logger logger = LoggerFactory.getLogger(TConnection.class);
 
 	private BaymaxDataSource            baymaxDataSource;
+    // 已经打开的connection,一个Tconnection对应一个真实的数据库只会有一个真实的Connection,为了资源和事务考虑.
 	private Map<DataSource, Connection> openedConnection        = new ConcurrentHashMap<DataSource, Connection>(2);
+    // 业务层获取metaData对应的Connection,分表情况下,所有表的schema可能不同,需要通过一个后台来检测不一致
 	private Connection                  connectionForMetaData;
+    // 这个Tconnection上已经打开的statement
 	private Set<TStatement>             openedStatements        = new HashSet<TStatement>(2);
+    // 是否自动提交
 	private boolean                     isAutoCommit            = true; // jdbc规范，新连接为true
+    // 这个TConnection是否已关闭
 	private boolean                     closed;
+    // 默认的事务隔离级别
 	private int                         transactionIsolation    = TRANSACTION_READ_COMMITTED;
-
+    // 事务执行器
     private TExecuter                   executer;
 
 	public TConnection(IRouteService routeService, BaymaxDataSource baymaxDataSource) {
@@ -35,10 +41,10 @@ public class TConnection extends UnsupportedConnectionAdapter {
 
     /**
      * 执行sql语句
-     * @param createCommand
-     * @param executeCommand
-     * @param parameterCommand
-     * @param stmt
+     * @param createCommand  存储的业务成出发的Connection创建命令,这里会回放.
+     * @param executeCommand 执行命令
+     * @param parameterCommand 参数设置命令
+     * @param stmt  statement
      * @return
      * @throws SQLException
      */

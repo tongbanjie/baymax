@@ -27,6 +27,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 抽象结果集
+ */
 public abstract class TResultSet extends UnsupportedResultSetAdapter {
 
 	private List<ResultSet>     resultSet;

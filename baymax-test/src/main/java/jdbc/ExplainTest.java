@@ -12,6 +12,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.tongbanjie.baymax.datasource.BaymaxDataSource;
 
+/**
+ * explain测试
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:META-INF/spring/spring-context.xml")
 public class ExplainTest {

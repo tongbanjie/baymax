@@ -11,6 +11,8 @@ import java.util.Map;
 
 /**
  * Created by sidawei on 16/1/29.
+ *
+ * Byamx上下文
  */
 public class BaymaxContext {
 
@@ -28,14 +30,29 @@ public class BaymaxContext {
      */
     private static Map<String/*TableName*/, PartitionTable> tableRuleMapping = new HashMap<String, PartitionTable>();
 
+    /**
+     * 判断某个表是否为分区表
+     * @param logicTableName
+     * @return
+     */
     public static boolean isPartitionTable(String logicTableName){
         return tableRuleMapping.containsKey(logicTableName);
     }
 
+    /**
+     * 获取某个分区表对应的路由配置信息
+     * @param logicTableName
+     * @return
+     */
     public static PartitionTable getPartitionTable(String logicTableName){
         return tableRuleMapping.get(logicTableName);
     }
 
+    /**
+     * 获取分区表对应的分区列
+     * @param logicTableName
+     * @return
+     */
     public static String[] getPartitionColumns(String logicTableName){
         return tableRuleMapping.get(logicTableName).getPartitionColumns();
     }

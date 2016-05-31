@@ -14,6 +14,8 @@ import java.util.Map;
 
 /**
  * Created by sidawei on 16/1/29.
+ *
+ * 结果集合并入口
  */
 public class TMerger {
 

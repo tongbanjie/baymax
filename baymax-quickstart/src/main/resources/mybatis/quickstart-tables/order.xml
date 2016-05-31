@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--  本文档由TotalBuilder自动生成   dao不使用接口    -->
+<mapper namespace="com.tongbanjie.baymax.quickstart.Order">
+
+    <!-- result map -->
+    <resultMap id="BaseResultMap" type="com.tongbanjie.baymax.quickstart.Order">
+                <result column="id"  property="id"/>
+                <result column="product_id"  property="productId"/>
+                <result column="product_name"  property="productName"/>
+                <result column="amount"  property="amount"/>
+                <result column="user_id"  property="userId"/>
+                <result column="create_time"  property="createTime"/>
+                <result column="modify_time"  property="modifyTime"/>
+    </resultMap>
+
+    <!-- select columns -->
+    <sql id="Base_Column_List">
+        id,
+        product_id,
+        product_name,
+        amount,
+        user_id,
+        create_time,
+        modify_time
+    </sql>
+
+    <!-- select -->
+    <select id="findByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+            <include refid="Base_Column_List" />
+        from
+            order_00
+        where
+            id = #{id}
+    </select>
+
+    <!-- select by example -->
+    <select id="findByExample" parameterType="map" resultMap="BaseResultMap">
+        select
+            <include refid="Base_Column_List" />
+        from order_00
+            <where>
+            <trim prefix="" prefixOverrides="and" suffix="">
+                <include refid="SELECT_WHERE_COLUMNS"/>
+            </trim>
+            </where>
+            <include refid="SELECT_ORDERBY"/>
+            <include refid="SELECT_LIMIE"/>
+    </select>
+
+    <!-- select where columns -->
+    <sql id="SELECT_WHERE_COLUMNS">
+            <if test="example.id != null">
+                and id=#{example.id}
+</if>
+            <if test="example.productId != null and example.productId != '' ">
+                and product_id=#{example.productId}
+</if>
+            <if test="example.productName != null and example.productName != '' ">
+                and product_name=#{example.productName}
+</if>
+            <if test="example.amount != null">
+                and amount=#{example.amount}
+</if>
+            <if test="example.userId != null">
+                and user_id=#{example.userId}
+</if>
+            <if test="example.createTime != null">
+                and create_time=#{example.createTime}
+</if>
+            <if test="example.modifyTime != null">
+                and modify_time=#{example.modifyTime}
+</if>
+    </sql>
+
+    <!-- select limit -->
+    <sql id="SELECT_LIMIE">
+        <if test="offset != null and rows != null">
+            LIMIT #{offset} , #{rows}
+</if>
+    </sql>
+
+    <!-- select orderby -->
+    <sql id="SELECT_ORDERBY">
+        <if test="orderby != null">
+            ORDER BY ${orderby.columnName} ${orderby.type}
+</if>
+    </sql>
+
+    <!-- select count by example -->
+    <select id="findCountByExample" parameterType="map" resultType="int">
+        select
+            count(1)
+        from order_00
+        <where>
+            <trim prefix="" prefixOverrides="and" suffix="">
+                <include refid="SELECT_WHERE_COLUMNS"/>
+            </trim>
+        </where>
+    </select>
+
+    <!--insert -->
+    <insert id="insert" parameterType="com.tongbanjie.baymax.quickstart.Order" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO order_00
+        (
+                id,
+                            product_id,
+                            product_name,
+                            amount,
+                            user_id,
+                            create_time,
+                            modify_time
+                    )VALUES(
+                #{id},
+                            #{productId},
+                            #{productName},
+                            #{amount},
+                            #{userId},
+                            #{createTime},
+                            #{modifyTime}
+                    )
+    </insert>
+
+    <!-- delete -->
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from order_00 where id = #{id}
+    </delete>
+
+    <!-- update -->
+    <update id="updateByPrimaryKey" parameterType="com.tongbanjie.baymax.quickstart.Order">
+        update order_00
+        <set>
+                    <if test="id != null">
+                        id=#{id},</if>
+                    <if test="productId != null and productId != '' ">
+                        product_id=#{productId},</if>
+                    <if test="productName != null and productName != '' ">
+                        product_name=#{productName},</if>
+                    <if test="amount != null">
+                        amount=#{amount},</if>
+                    <if test="userId != null">
+                        user_id=#{userId},</if>
+                    <if test="createTime != null">
+                        create_time=#{createTime},</if>
+                    <if test="modifyTime != null">
+                        modify_time=#{modifyTime}</if>
+        </set>
+        where id = #{id}
+    </update>
+
+</mapper>

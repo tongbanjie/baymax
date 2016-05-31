@@ -6,6 +6,9 @@ import com.tongbanjie.baymax.jdbc.model.ExecuteCommand;
 import com.tongbanjie.baymax.jdbc.model.ParameterCommand;
 import com.tongbanjie.baymax.jdbc.model.StatementCreateCommand;
 
+/**
+ * 跟踪上下文
+ */
 public class TraceContext {
 	private String                          sql;
 	private StatementCreateCommand          createCommand;

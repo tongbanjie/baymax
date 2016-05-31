@@ -1,12 +1,18 @@
 package com.tongbanjie.baymax.jdbc.merge;
 
+/**
+ * 需要合并的列
+ */
 public class MergeColumn {
-
+    // 列字段名
     private String      columnName;
+    //
     private int         columnIndex;
+    // 合并类型
 	private MergeType   mergeType;
-
+    // 如果merteType=MergeType.MERGE_AVG 则avgSumColumnName表示和并列求和的字段,通过sql改写生成.
     private String      avgSumColumnName;
+    // 如果merteType=MergeType.MERGE_AVG 则avgCountCoumnNamee表示和并列求行数的字段,通过sql改写生成.
     private String      avgCountCoumnName;
 
 	public MergeColumn(String columnName, int columnIndex, MergeType mergeType) {

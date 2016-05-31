@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 
 /**
  * Created by sidawei on 16/2/3.
+ *
+ * 结果集合并公共方法
  */
 public class MergeMath {
 

@@ -2,9 +2,18 @@ package com.tongbanjie.baymax.jdbc.merge;
 
 import com.alibaba.druid.sql.ast.SQLOrderingSpecification;
 
+/**
+ * 排序字段
+ */
 public class OrderbyColumn {
-
+    /**
+     * 字段名称
+     */
     private String          columnName;
+
+    /**
+     * 排序类型
+     */
 	private OrderbyType     orderbyType;
 
 	public OrderbyColumn(String columnName, OrderbyType orderbyType) {

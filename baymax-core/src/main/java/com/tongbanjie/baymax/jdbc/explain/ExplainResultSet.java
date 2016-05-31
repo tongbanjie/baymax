@@ -23,6 +23,9 @@ import java.util.Map;
 import com.tongbanjie.baymax.jdbc.adapter.UnsupportedResultSetAdapter;
 import com.tongbanjie.baymax.router.model.ExecutePlan;
 
+/**
+ * explan命令的返回的结果集
+ */
 public class ExplainResultSet extends UnsupportedResultSetAdapter {
 	
 	private ExecutePlan plan;

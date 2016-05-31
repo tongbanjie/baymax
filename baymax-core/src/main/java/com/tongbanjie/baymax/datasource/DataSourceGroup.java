@@ -16,24 +16,25 @@ import javax.sql.DataSource;
 public class DataSourceGroup {
 	
 	/**
-	 * 命名,唯一标识
+	 * 命名,唯一标识,在配置文件中定义,在做表名－数据库映射时需要用到
 	 */
 	private String identity;
 	/**
-	 * active data source
+	 * 主库数据源
 	 */
 	private DataSource targetDataSource;
 	/**
-	 * detecting data source for active data source
-	 * 专为检测而存在的dataSource，为了避免业务的dataSource被占满而导致无法收到检测心跳。
+	 * 主库检测数据源
+     * 和targetDataSource指向同一个物理数据库,只是池中连接数会配置的比较少,用来做心跳检测.
+	 * 为了避免业务的targetDataSource被占满而导致无法收到检测心跳。
 	 */
 	private DataSource targetDetectorDataSource;
 	/**
-	 * standby data source
+	 * 从库数据源
 	 */
 	private DataSource standbyDataSource;
 	/**
-	 * detecting datasource for standby data source
+	 * 从库检测数据源
 	 */
 	private DataSource standbyDetectorDataSource;
 

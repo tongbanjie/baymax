@@ -11,9 +11,22 @@ import javax.sql.DataSource;
  * DataSource分发
  */
 public class DataSourceDispatcher {
+    /**
+     * 一个Gorup表示同一份数据的一主一备
+     */
 	private Set<DataSourceGroup>    dataSourceGroupSet  = new HashSet<DataSourceGroup>();
+    /**
+     * 所有的数据源集合
+     * Key: DataSourceGroup.identity
+     */
 	private Map<String, DataSource> dataSources         = new HashMap<String, DataSource>();
+    /**
+     * 所有数据源的集合
+     */
 	private Set<DataSource>         dataSourceSet       = new HashSet<DataSource>();
+    /**
+     * 默认数据源
+     */
 	private DataSource              defaultDataSource   = null;
 
 	public Map<String, DataSource> getDataSources() {

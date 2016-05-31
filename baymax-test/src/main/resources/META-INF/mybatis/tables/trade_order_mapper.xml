@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--  本文档由TotalBuilder自动生成   dao不使用接口    -->
+<mapper namespace="TradeOrder">
+
+    <!-- result map -->
+    <resultMap id="BaseResultMap" type="mybatis.vo.TradeOrder">
+        <result column="order_id" property="orderId"/>
+        <result column="user_id" property="userId"/>
+        <result column="product_id" property="productId"/>
+        <result column="product_name" property="productName"/>
+        <result column="status" property="status"/>
+    </resultMap>
+
+    <!-- select columns -->
+    <sql id="Base_Column_List">
+        order_id,
+        user_id,
+        product_id,
+        product_name,
+        status
+    </sql>
+
+    <!-- select -->
+    <select id="findByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        t_order
+        where
+        order_id = #{orderId}
+    </select>
+
+    <!-- select by example -->
+    <select id="findByExample" parameterType="map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_order
+        <where>
+            <trim prefix="" prefixOverrides="and" suffix="">
+                <include refid="SELECT_WHERE_COLUMNS"/>
+            </trim>
+        </where>
+        <include refid="SELECT_ORDERBY"/>
+        <include refid="SELECT_LIMIE"/>
+    </select>
+
+    <!-- select where columns -->
+    <sql id="SELECT_WHERE_COLUMNS">
+        <if test="example.orderId != null">
+            and order_id=#{example.orderId}
+        </if>
+        <if test="example.userId != null">
+            and user_id=#{example.userId}
+        </if>
+        <if test="example.productId != null">
+            and product_id=#{example.productId}
+        </if>
+        <if test="example.productName != null and example.productName != '' ">
+            and product_name=#{example.productName}
+        </if>
+        <if test="example.status != null">
+            and status=#{example.status}
+        </if>
+    </sql>
+
+    <!-- select limit -->
+    <sql id="SELECT_LIMIE">
+        <if test="offset != null and rows != null">
+            LIMIT #{offset} , #{rows}
+        </if>
+    </sql>
+
+    <!-- select orderby -->
+    <sql id="SELECT_ORDERBY">
+        <if test="orderby != null">
+            ORDER BY ${orderby.columnName} ${orderby.type}
+        </if>
+    </sql>
+
+    <!-- select count by example -->
+    <select id="findCountByExample" parameterType="map" resultType="int">
+        select
+        count(1)
+        from t_order
+        <where>
+            <trim prefix="" prefixOverrides="and" suffix="">
+                <include refid="SELECT_WHERE_COLUMNS"/>
+            </trim>
+        </where>
+    </select>
+
+    <!--insert -->
+    <insert id="insert" parameterType="mybatis.vo.TradeOrder" useGeneratedKeys="true" keyProperty="orderId">
+        INSERT INTO t_order
+        (
+        order_id,
+        user_id,
+        product_id,
+        product_name,
+        status
+        )VALUES(
+        #{orderId},
+        #{userId},
+        #{productId},
+        #{productName},
+        #{status}
+        )
+    </insert>
+
+    <!-- delete -->
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from t_order where order_id = #{orderId}
+    </delete>
+
+    <!-- update -->
+    <update id="updateByPrimaryKey" parameterType="mybatis.vo.TradeOrder">
+        update t_order
+        <set>
+            <if test="orderId != null">
+                order_id=#{orderId},
+            </if>
+            <if test="userId != null">
+                user_id=#{userId},
+            </if>
+            <if test="productId != null">
+                product_id=#{productId},
+            </if>
+            <if test="productName != null and productName != '' ">
+                product_name=#{productName},
+            </if>
+            <if test="status != null">
+                status=#{status}
+            </if>
+        </set>
+        where order_id = #{orderId}
+    </update>
+
+</mapper>

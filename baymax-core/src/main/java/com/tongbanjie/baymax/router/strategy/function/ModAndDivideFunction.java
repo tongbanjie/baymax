@@ -12,21 +12,21 @@ import com.tongbanjie.baymax.router.strategy.PartitionFunction;
  */
 public class ModAndDivideFunction implements PartitionFunction {
 	
-	 private int mode;
+	 private int mod;
 
 	 private int divide = 1;
 	 
 	@Override
 	public Integer execute(String columnValue, Map<String, Object> extension) {
-		 return ((Long)(Long.valueOf(columnValue) % mode / divide)).intValue();
+		 return ((Long)(Long.valueOf(columnValue) % mod / divide)).intValue();
 	}
 
-	public int getMode() {
-		return mode;
+	public int getMod() {
+		return mod;
 	}
 
-	public void setMode(int mode) {
-		this.mode = mode;
+	public void setMod(int mod) {
+		this.mod = mod;
 	}
 
 	public int getDivide() {

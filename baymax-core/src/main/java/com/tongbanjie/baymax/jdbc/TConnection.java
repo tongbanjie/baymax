@@ -269,6 +269,24 @@ public class TConnection extends UnsupportedConnectionAdapter {
 		return stmt;
 	}
 
+    @Override
+    public PreparedStatement prepareStatement(String sql, int[] columnIndexes) throws SQLException {
+        checkClosed();
+        StatementCreateCommand command = new StatementCreateCommand(StatementCreateMethod.prepareStatement_sql_columnIndexes, new Object[]{sql, columnIndexes});
+        PreparedStatement stmt = new TPreparedStatement(this, command, sql);
+        openedStatements.add((TStatement) stmt);
+        return stmt;
+    }
+
+    @Override
+    public PreparedStatement prepareStatement(String sql, String[] columnNames) throws SQLException {
+        checkClosed();
+        StatementCreateCommand command = new StatementCreateCommand(StatementCreateMethod.prepareStatement_sql_columnNames, new Object[]{sql, columnNames});
+        PreparedStatement stmt = new TPreparedStatement(this, command, sql);
+        openedStatements.add((TStatement) stmt);
+        return stmt;
+    }
+
 	/**
 	 * 结果集的保持时间
 	 */

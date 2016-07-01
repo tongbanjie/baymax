@@ -12,53 +12,53 @@ public abstract class UnsupportedConnectionAdapter implements Connection{
 
     @Override
     public void setClientInfo(String name, String value) throws SQLClientInfoException {
-        throw new RuntimeException("not support exception");
+        throw new RuntimeException("Connection.setClientInfo() not support exception");
     }
 
     @Override
     public void setClientInfo(Properties properties) throws SQLClientInfoException {
-        throw new RuntimeException("not support exception");
+        throw new RuntimeException("Connection.setClientInfo not support exception");
     }
 
     @Override
     public String getClientInfo(String name) throws SQLException {
-        throw new SQLException("not support exception");
+        throw new SQLException("Connection.getClientInfo not support exception");
     }
 
     @Override
     public Properties getClientInfo() throws SQLException {
-        throw new SQLException("not support exception");
+        throw new SQLException("Connection.getClientInfo not support exception");
     }
 
     @Override
     public Array createArrayOf(String typeName, Object[] elements) throws SQLException {
-        throw new SQLException("not support exception");
+        throw new SQLException("Connection.createArrayOf not support exception");
     }
 
     @Override
     public Struct createStruct(String typeName, Object[] attributes) throws SQLException {
-        throw new SQLException("not support exception");
+        throw new SQLException("Connection.createStruct not support exception");
     }
 
 
     @Override
     public Clob createClob() throws SQLException {
-        throw new SQLException("not support exception");
+        throw new SQLException("Connection.createClob not support exception");
     }
 
     @Override
     public Blob createBlob() throws SQLException {
-        throw new SQLException("not support exception");
+        throw new SQLException("Connection.createBlob not support exception");
     }
 
     @Override
     public NClob createNClob() throws SQLException {
-        throw new SQLException("not support exception");
+        throw new SQLException("Connection.createNClob not support exception");
     }
 
     @Override
     public SQLXML createSQLXML() throws SQLException {
-        throw new SQLException("not support exception");
+        throw new SQLException("Connection.createSQLXML not support exception");
     }
 
     @Override
@@ -113,42 +113,32 @@ public abstract class UnsupportedConnectionAdapter implements Connection{
 
     @Override
     public CallableStatement prepareCall(String sql) throws SQLException {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException("prepareCall");
     }
 
     @Override
     public Statement createStatement(int resultSetType, int resultSetConcurrency, int resultSetHoldability) throws SQLException {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException("createStatement");
     }
 
     @Override
     public PreparedStatement prepareStatement(String sql, int resultSetType, int resultSetConcurrency, int resultSetHoldability) throws SQLException {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException("prepareStatement");
     }
 
     @Override
     public CallableStatement prepareCall(String sql, int resultSetType, int resultSetConcurrency, int resultSetHoldability) throws SQLException {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public PreparedStatement prepareStatement(String sql, int[] columnIndexes) throws SQLException {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public PreparedStatement prepareStatement(String sql, String[] columnNames) throws SQLException {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException("prepareCall");
     }
 
     @Override
     public PreparedStatement prepareStatement(String sql, int resultSetType, int resultSetConcurrency) throws SQLException {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException("prepareStatement");
     }
 
     @Override
     public CallableStatement prepareCall(String sql, int resultSetType, int resultSetConcurrency) throws SQLException {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException("prepareCall");
     }
 
 
@@ -172,7 +162,7 @@ public abstract class UnsupportedConnectionAdapter implements Connection{
      * @since 1.7
      */
     public void setSchema(String schema) throws SQLException {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException("setSchema");
     }
 
     /**
@@ -185,7 +175,7 @@ public abstract class UnsupportedConnectionAdapter implements Connection{
      * @since 1.7
      */
     public String getSchema() throws SQLException {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException("getSchema");
     }
 
     /**
@@ -226,7 +216,7 @@ public abstract class UnsupportedConnectionAdapter implements Connection{
      * @since 1.7
      */
     public void abort(Executor executor) throws SQLException {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException("abort");
     }
 
     /**
@@ -319,7 +309,7 @@ public abstract class UnsupportedConnectionAdapter implements Connection{
      * @since 1.7
      */
     public void setNetworkTimeout(Executor executor, int milliseconds) throws SQLException {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException("setNetworkTimeout");
     }
 
     /**
@@ -338,6 +328,6 @@ public abstract class UnsupportedConnectionAdapter implements Connection{
      * @since 1.7
      */
     public int getNetworkTimeout() throws SQLException {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException("getNetworkTimeout");
     }
 }

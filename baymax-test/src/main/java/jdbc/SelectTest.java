@@ -23,7 +23,7 @@ public class SelectTest {
     @Test
     public void test() throws SQLException, InterruptedException{
         // or
-        test("select order_id, user_id from t_order where user_id = 1 or user_id = 2");
+        //test("select order_id, user_id from t_order where user_id = 1 or user_id = 2");
 
         // (or)and
         //test("select order_id, user_id from t_order where (user_id = 1 or user_id = 2) and product_name='prodtct1' ");
@@ -36,7 +36,7 @@ public class SelectTest {
 
         // limit
         //test("select order_id, user_id from t_order");
-        //test("select order_id, user_id from t_order limit 3, 1");
+        test("select order_id, user_id from t_order limit 3, 1");
 
         // limit order by
         //test("select order_id, user_id from t_order order by order_id");
@@ -55,7 +55,7 @@ public class SelectTest {
         //test("select user_id,sum(user_id) from t_order group by user_id order by user_id limit 3,2");
 
         // in
-        test("select * from t_order where user_id in (2, 3)");
+        //test("select * from t_order where user_id in (2, 3)");
 
 
     }
@@ -65,6 +65,17 @@ public class SelectTest {
         long start = System.currentTimeMillis();
         new Jdbc(dataSource).executeSelect(sql).printSet().close();
         System.out.println("耗时:" + (System.currentTimeMillis() - start));
+    }
+
+    @Test
+    public void testLimit() throws SQLException {
+        new Jdbc(dataSource)
+                .prepareStatement("select order_id, user_id from t_order limit ?, ?")
+                .setInteger(1, 3)
+                .setInteger(2, 1)
+                .executeQueary()
+                .printSet()
+                .close();
     }
 
 }

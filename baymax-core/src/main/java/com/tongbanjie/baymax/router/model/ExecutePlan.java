@@ -7,6 +7,7 @@ import com.tongbanjie.baymax.parser.model.Limit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * 路由计算的结果,执行计划,描述了一个sql
@@ -39,6 +40,11 @@ public class ExecutePlan {
     private List<OrderbyColumn>                                 orderbyColumns;
 
     private Limit                                               limit;
+
+    /**
+     * 在解析limit的时候，如果limit（x,x）会产生需要覆盖的参数.
+     */
+    private Map<Integer, Object>                                overrideParameters;
 
     /*------------------------------------------------------------------------------------*/
 
@@ -109,5 +115,13 @@ public class ExecutePlan {
 
     public void setLimit(Limit limit) {
         this.limit = limit;
+    }
+
+    public Map<Integer, Object> getOverrideParameters() {
+        return overrideParameters;
+    }
+
+    public void setOverrideParameters(Map<Integer, Object> overrideParameters) {
+        this.overrideParameters = overrideParameters;
     }
 }

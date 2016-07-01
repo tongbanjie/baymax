@@ -78,6 +78,22 @@ public class Jdbc {
         return this;
     }
 
+    public Jdbc prepareStatement(String sql) throws SQLException {
+        conn = dataSource.getConnection();
+        stmt = conn.prepareStatement(sql);
+        return this;
+    }
+
+    public Jdbc setInteger(int index, Integer param) throws SQLException {
+        this.stmt.setInt(index, param);
+        return this;
+    }
+
+    public Jdbc executeQueary() throws SQLException {
+        resultSet = stmt.executeQuery();
+        return this;
+    }
+
     public Jdbc close() throws SQLException {
         conn.setAutoCommit(true);
         stmt.close();

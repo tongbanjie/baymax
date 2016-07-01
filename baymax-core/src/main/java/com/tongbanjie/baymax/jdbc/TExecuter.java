@@ -21,6 +21,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by sidawei on 16/1/29.
@@ -109,7 +110,7 @@ public class TExecuter {
         // 执行
         for (TrargetSqlEntity target : sqlList) {
             Connection      conn = getConnection(target);
-            Statement       targetStatement = getStatement(isPreparedStatement, createCommand, parameterCommand, conn, target);
+            Statement       targetStatement = getStatement(isPreparedStatement, createCommand, parameterCommand, plan.getOverrideParameters(), conn, target);
             ExecuteMethod   method          = executeCommand.getMethod();
             Object[]        args            = executeCommand.getArgs();
 
@@ -187,19 +188,34 @@ public class TExecuter {
      * @param isPreparedStatement
      * @param createCommand
      * @param parameterCommand
+     * @param overrideParameters limit 解析过程中会产生需要覆盖的参数
      * @param conn
      * @param target
      * @return
      * @throws SQLException
      */
-    private Statement getStatement(boolean isPreparedStatement, StatementCreateCommand createCommand, Map<Integer, ParameterCommand> parameterCommand, Connection conn, TrargetSqlEntity target) throws SQLException {
+    private Statement getStatement(boolean isPreparedStatement, StatementCreateCommand createCommand, Map<Integer, ParameterCommand> parameterCommand, Map<Integer, Object> overrideParameters, Connection conn, TrargetSqlEntity target) throws SQLException {
         Statement targetStatement;
         if(isPreparedStatement){
             Object[] args = createCommand.getArgs();
             args[0] = target.getTargetSql();
             targetStatement = createCommand.getMethod().prepareStatement(conn, args); 	//打开PrepareadStatement
-            for(ParameterCommand command : parameterCommand.values()){					// 设置SQL参数
-                command.getParameterMethod().setParameter((PreparedStatement)targetStatement, command.getArgs());
+
+            if (parameterCommand != null){
+                Set<Map.Entry<Integer, ParameterCommand>> setCommands = parameterCommand.entrySet();
+                for (Map.Entry<Integer, ParameterCommand> setCommand : setCommands){
+                    Integer index = setCommand.getKey();
+                    Object[] getArgs = null;
+                    if (overrideParameters != null && overrideParameters.containsKey(index)){
+                        // 需要覆盖的参数
+                        getArgs = new Object[]{setCommand.getKey(), overrideParameters.get(index)};
+                    }else {
+                        // 原始Command中的参数
+                        getArgs = setCommand.getValue().getArgs();
+                    }
+                    // 设置SQL参数
+                    setCommand.getValue().getParameterMethod().setParameter((PreparedStatement) targetStatement, getArgs);
+                }
             }
         }else{
             targetStatement = conn.createStatement();				// 打开普通Statement

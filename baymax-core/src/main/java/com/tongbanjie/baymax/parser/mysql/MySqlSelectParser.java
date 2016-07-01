@@ -286,6 +286,7 @@ public class MySqlSelectParser extends MySqlSqlParser {
         if (x == null){
             return;
         }
+        Map<Integer, Object> overrideParameters = new HashMap<Integer, Object>(2);
         int offset = 0;
         if (null != x.getOffset()) {
             if (x.getOffset() instanceof SQLNumericLiteralExpr) {
@@ -295,7 +296,7 @@ public class MySqlSelectParser extends MySqlSqlParser {
                 x.setOffset(offsetExpr);
             } else {
                 offset = ((Number) parameters.get(((SQLVariantRefExpr) x.getOffset()).getIndex())).intValue();
-                parameters.set(((SQLVariantRefExpr) x.getOffset()).getIndex(), 0);
+                overrideParameters.put(((SQLVariantRefExpr) x.getOffset()).getIndex() + 1, 0);
             }
         }
         int rowCount;
@@ -306,9 +307,10 @@ public class MySqlSelectParser extends MySqlSqlParser {
             x.setRowCount(rowsExpr);
         } else {
             rowCount = ((Number) parameters.get(((SQLVariantRefExpr) x.getRowCount()).getIndex())).intValue();
-            parameters.set(((SQLVariantRefExpr) x.getRowCount()).getIndex(), rowCount + offset);
+            overrideParameters.put(((SQLVariantRefExpr) x.getRowCount()).getIndex() + 1, rowCount + offset);
         }
         plan.setLimit(new Limit(offset, rowCount));
+        plan.setOverrideParameters(overrideParameters);
     }
 
 }

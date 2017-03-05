@@ -17,6 +17,8 @@ import java.util.Set;
 
 /**
  * Created by sidawei on 17/3/5.
+ *
+ * 阳春三月无限好 码农周末码代码
  */
 @Component
 public class SpecialPartitionTable extends PartitionTable {

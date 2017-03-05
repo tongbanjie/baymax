@@ -23,27 +23,36 @@ public class SelectTest {
     @Test
     public void test() throws SQLException, InterruptedException{
         // or
-        //test("select order_id, user_id from t_order where user_id = 1 or user_id = 2");
+        log("or");
+        test("select order_id, user_id from t_order where user_id = 1 or user_id = 2");
 
         // (or)and
-        //test("select order_id, user_id from t_order where (user_id = 1 or user_id = 2) and product_name='prodtct1' ");
+        log("or-and");
+        test("select order_id, user_id from t_order where (user_id = 1 or user_id = 2) and product_name='prodtct1' ");
 
         // union的限制 (分表)union(单表)  且分表的路由结果是单库单表，且和另外一个被union的表在同一个库上
-        //test("(select order_id, user_id from t_order where user_id = 1) union (select order_id, user_id from t_order_0)");
+        log("union");
+        test("(select order_id, user_id from t_order where user_id = 1) union (select order_id, user_id from t_order_0)");
 
         // or 全表扫描
-        //test("select order_id, user_id, status from t_order where user_id = 1 or status = 1 order by user_id");
+        log("or 全表扫描");
+        test("select order_id, user_id, status from t_order where user_id = 1 or status = 1 order by user_id");
 
         // limit
-        //test("select order_id, user_id from t_order");
+        log("limit");
+        test("select order_id, user_id from t_order");
+
+        log("limit 3 1");
         test("select order_id, user_id from t_order limit 3, 1");
 
         // limit order by
-        //test("select order_id, user_id from t_order order by order_id");
+        log("limit order by");
+        test("select order_id, user_id from t_order order by order_id");
         //test("select order_id, user_id from t_order order by order_id limit 3,1");
 
         // limit group by
-        //test("select user_id from t_order group by user_id order by user_id");
+        log("limit group by");
+        test("select user_id from t_order group by user_id order by user_id");
         //test("select user_id from t_order group by user_id order by user_id limit 3,1");
 
         // limit agg
@@ -51,20 +60,22 @@ public class SelectTest {
         //test("select sum(user_id) from t_order");
 
         // limit agg group by order by
-        //test("select user_id,sum(user_id) from t_order group by user_id order by user_id");
+        test("select user_id,sum(user_id) from t_order group by user_id order by user_id");
         //test("select user_id,sum(user_id) from t_order group by user_id order by user_id limit 3,2");
 
         // in
-        //test("select * from t_order where user_id in (2, 3)");
+        test("select * from t_order where user_id in (2, 3)");
+
+        test("select * from t_order where order_id = 1002 and user_id = 2");
 
 
     }
 
     public void test(String sql) throws SQLException {
-        System.out.println("开始");
+        log("开始");
         long start = System.currentTimeMillis();
         new Jdbc(dataSource).executeSelect(sql).printSet().close();
-        System.out.println("耗时:" + (System.currentTimeMillis() - start));
+        log("耗时:" + (System.currentTimeMillis() - start));
     }
 
     @Test
@@ -76,6 +87,10 @@ public class SelectTest {
                 .executeQueary()
                 .printSet()
                 .close();
+    }
+
+    private void log(String s){
+        System.out.println(s);
     }
 
 }

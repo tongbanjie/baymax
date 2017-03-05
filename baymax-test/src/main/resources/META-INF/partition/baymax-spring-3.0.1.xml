@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:baymax="http://baymax.tongbanjie.com/schema/baymax-3.0"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	                       http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+	                       http://baymax.tongbanjie.com/schema/baymax-3.0
+	                       http://baymax.tongbanjie.com/schema/baymax-3.0.xsd">
+
+
+    <!-- 开启baymax -->
+    <baymax:context />
+
+    <bean class="support.SpecialPartitionTable"></bean>
+
+</beans>

@@ -41,16 +41,34 @@ public class BaymaxSpringContext implements ApplicationListener<ContextRefreshed
     }
 
     private void init() {
+
+        List<PartitionTable> tables = new ArrayList<PartitionTable>();
+
+        /**
+         * 查询配置的TableConfig
+         */
         String[] beans = applicationContext.getBeanNamesForType(TableConfig.class);
         if (beans != null){
-            List<PartitionTable> tables = new ArrayList<PartitionTable>();
             for (String beanName : beans){
                 TableConfig tableConfig = applicationContext.getBean(beanName, TableConfig.class);
                 tables.add(init(tableConfig));
             }
-            BaymaxContext.setTables(tables);
-            BaymaxContext.init();
         }
+
+        /**
+         * 查询配置的PartitionTable
+         *
+         */
+        String[] partitionTables = applicationContext.getBeanNamesForType(PartitionTable.class);
+        if (partitionTables != null){
+            for (String beanName : partitionTables){
+                PartitionTable partitionTable = applicationContext.getBean(beanName, PartitionTable.class);
+                tables.add(partitionTable);
+            }
+        }
+
+        BaymaxContext.setTables(tables);
+        BaymaxContext.init();
     }
 
     private PartitionTable init(TableConfig tableConfig){
@@ -77,6 +95,7 @@ public class BaymaxSpringContext implements ApplicationListener<ContextRefreshed
         partitionTable.setNamePatten(tableConfig.getNamePatten());
         partitionTable.setRule(rule);
         partitionTable.setNodeMapping(nodeMapping);
+        partitionTable.setColumns(rule.getColumns());
 
         return partitionTable;
     }

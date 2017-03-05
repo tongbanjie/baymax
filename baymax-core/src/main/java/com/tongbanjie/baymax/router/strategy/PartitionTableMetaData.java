@@ -69,7 +69,7 @@ public class PartitionTableMetaData {
         this.suffixLength = namePatten.substring(start+1, end).length();
     }
 
-    protected void initRules(){
+    protected void initColumns(){
         if(columns == null || columns.size() == 0){
             throw new RuntimeException(String.format("columns must not be empty! strategy{%s}", logicTableName));
         }
@@ -123,6 +123,7 @@ public class PartitionTableMetaData {
 
     public void setColumns(List<PartitionColumn> columns) {
         this.columns = columns;
+        initColumns();
     }
 
     public PartitionTableNodeMapping getNodeMapping() {
@@ -135,9 +136,6 @@ public class PartitionTableMetaData {
 
     public void setRule(PartitionTableRule rule) {
         this.rule = rule;
-        this.setColumns(rule.getColumns());
-        initRules();
-        // init
     }
 
     @Override
@@ -145,8 +143,16 @@ public class PartitionTableMetaData {
         StringBuffer sb = new StringBuffer();
         sb.append('\n');
         sb.append(String.format("--[name:%s] [namePatten:%s] [disableFullScan:%s]", logicTableName, namePatten, disableFullScan)).append('\n');
-        sb.append(String.format("--[rule:%s] ", rule.toString())).append('\n');
-        sb.append(String.format("--[nodeMapping:%s]", nodeMapping.toString())).append('\n');
+        if (rule == null){
+            sb.append(String.format("--[rule:%s] ", "null")).append('\n');
+        }else {
+            sb.append(String.format("--[rule:%s] ", rule.toString())).append('\n');
+        }
+        if (nodeMapping == null){
+            sb.append(String.format("--[nodeMapping:%s]", "null")).append('\n');
+        }else {
+            sb.append(String.format("--[nodeMapping:%s]", nodeMapping.toString())).append('\n');
+        }
         return sb.toString();
     }
 }

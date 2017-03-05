@@ -14,6 +14,14 @@ public class PartitionTableRule {
 
     private PartitionFunction function;       // 分区函数
 
+    public PartitionTableRule() {
+    }
+
+    public PartitionTableRule(List<PartitionColumn> columns, PartitionFunction function) {
+        this.columns = columns;
+        this.function = function;
+    }
+
     public List<PartitionColumn> getColumns() {
         return columns;
     }

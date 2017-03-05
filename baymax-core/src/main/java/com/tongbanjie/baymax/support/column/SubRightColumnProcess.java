@@ -20,6 +20,13 @@ public class SubRightColumnProcess implements ColumnProcess {
         return s;
     }
 
+    public SubRightColumnProcess() {
+    }
+
+    public SubRightColumnProcess(int length) {
+        this.length = length;
+    }
+
     public int getLength() {
         return length;
     }

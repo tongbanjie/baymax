@@ -34,24 +34,15 @@ public class PartitionTable extends PartitionTableMetaData{
         List<TargetTableEntity> targetList = new ArrayList<TargetTableEntity>(1);
 
         for (PartitionColumn column : columns){
-            ConditionUnit matchingConditon = null;
-            for(ConditionUnit condition : conditionUnits){
-                if (column.getName().equals(condition.getColumn()) && logicTableName.equals(condition.getTable())){
-                    if (matchingConditon != null){
-                        throw new BayMaxException("有多个相同列的Condition : " + condition);
-                    }else {
-                        matchingConditon = condition;
-                    }
-                }
-            }
+            ConditionUnit matchingConditon = findColumnFromConditions(conditionUnits, column.getName());
             // 寻找到了分区列
             if (matchingConditon != null){
                 if (matchingConditon.getOperator() == ConditionUnitOperator.EQUAL){
                     // values
-                    executeRule(targetList, rule.getFunction(), column, matchingConditon.getValues().get(0));
+                    executeRule(targetList, rule.getFunction(), column, matchingConditon.getValues().get(0), conditionUnits);
                 }else if (matchingConditon.getOperator() == ConditionUnitOperator.IN){
                     for (Object obj : matchingConditon.getValues()){
-                        executeRule(targetList, rule.getFunction(), column, obj);
+                        executeRule(targetList, rule.getFunction(), column, obj, conditionUnits);
                     }
                 }
             }
@@ -63,11 +54,11 @@ public class PartitionTable extends PartitionTableMetaData{
         return targetList;
     }
 
-    private void executeRule(List<TargetTableEntity> targetList, PartitionFunction function, PartitionColumn column, Object value){
+    protected void executeRule(List<TargetTableEntity> targetList, PartitionFunction function, PartitionColumn column, Object value, Set<ConditionUnit> conditionUnits){
         if (column.getProcess() != null){
             value = column.getProcess().apply(value);
         }
-        TargetTableEntity target = executeRule(function, value);
+        TargetTableEntity target = executeRule(function, column, value, conditionUnits);
         if (target != null && target.getTargetDB() == null && target.getTargetTable() != null){
             throw new BayMaxException(target.getTargetTable() + "根据表名后缀找不到对应的库 请检查你的配置");
         }
@@ -76,7 +67,7 @@ public class PartitionTable extends PartitionTableMetaData{
         }
     }
 
-    private TargetTableEntity executeRule(PartitionFunction function, Object value) {
+    protected TargetTableEntity executeRule(PartitionFunction function, PartitionColumn column, Object value, Set<ConditionUnit> conditionUnits) {
         Integer ruleResult = function.execute(String.valueOf(value), null);
         String suffix = super.getSuffix(ruleResult);
         String targetTable = super.format(suffix);
@@ -97,6 +88,20 @@ public class PartitionTable extends PartitionTableMetaData{
             allTables.add(new TargetTableEntity(entry.getValue(), super.format(entry.getKey())));
         }
         return allTables;
+    }
+
+    protected ConditionUnit findColumnFromConditions(Set<ConditionUnit/*column value*/> conditionUnits, String columnName){
+        ConditionUnit matchingConditon = null;
+        for(ConditionUnit condition : conditionUnits){
+            if (columnName.equals(condition.getColumn()) && logicTableName.equals(condition.getTable())){
+                if (matchingConditon != null){
+                    throw new BayMaxException("有多个相同列的Condition : " + condition);
+                }else {
+                    matchingConditon = condition;
+                }
+            }
+        }
+        return matchingConditon;
     }
 
     @Override

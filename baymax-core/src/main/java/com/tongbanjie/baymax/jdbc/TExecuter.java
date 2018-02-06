@@ -54,6 +54,9 @@ public class TExecuter {
         }catch(SQLException e){
             logger.error("BayMax Execute SQL Error : trace{"+trace.toString()+"}" ,e);
             throw e;
+        }catch (RuntimeException e){
+            logger.error("BayMax Execute SQL Error : trace{"+trace.toString()+"}" ,e);
+            throw e;
         }
     }
 

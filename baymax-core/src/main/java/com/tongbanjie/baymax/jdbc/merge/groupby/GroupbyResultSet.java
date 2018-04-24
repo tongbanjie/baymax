@@ -122,4 +122,20 @@ public class GroupbyResultSet extends GroupbyResultSetGetterAdapter {
         return true;
     }
 
+    @Override
+    public boolean wasNull() throws SQLException {
+        if (aggColumns.containsKey(currentValue.getLastColumn())){
+            if (groupbyValues != null){
+                for (GroupbyValue value : groupbyValues){
+                    if (!value.wasNull()){
+                        return false;
+                    }
+                }
+                return true;
+            }
+        }else{
+            currentValue.wasNull();
+        }
+        return super.wasNull();
+    }
 }

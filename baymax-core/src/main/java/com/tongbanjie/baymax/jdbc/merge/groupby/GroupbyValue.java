@@ -22,6 +22,13 @@ public class GroupbyValue implements OrderByComparetor.CompareEntity{
 
     private GroupbyMetaData metaData;
 
+    /**
+     * 上次get的列
+     */
+    private String lastColumn;
+
+    private boolean wasNull;
+
     public GroupbyValue(ResultSet set, GroupbyMetaData metaData, Map<String, MergeColumn.MergeType> aggColumns) throws SQLException {
         this(set, metaData, aggColumns, null);
     }
@@ -69,11 +76,17 @@ public class GroupbyValue implements OrderByComparetor.CompareEntity{
     }
 
     public <T> T getValue(int index, Class<T> type){
-        return (T)DataConvert.convertValue(valus[index], type);
+        this.lastColumn = metaData.getColumnLabel(index);
+        T result = (T)DataConvert.convertValue(valus[index], type);
+        this.wasNull = result == null;
+        return result;
     }
 
     public <T> T getValue(String columnLabel, Class<T> type){
-        return (T)DataConvert.convertValue(valus[metaData.getColumnIndex(columnLabel)], type);
+        this.lastColumn = columnLabel;
+        T result = (T)DataConvert.convertValue(valus[metaData.getColumnIndex(columnLabel)], type);
+        this.wasNull = result == null;
+        return result;
     }
 
     /**
@@ -85,5 +98,13 @@ public class GroupbyValue implements OrderByComparetor.CompareEntity{
     @Override
     public Object getValue(String columnName) throws SQLException {
         return this.getValue(columnName, Object.class);
+    }
+
+    public String getLastColumn() {
+        return lastColumn;
+    }
+
+    public boolean wasNull() {
+        return wasNull;
     }
 }

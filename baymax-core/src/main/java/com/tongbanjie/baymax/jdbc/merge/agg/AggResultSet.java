@@ -1,5 +1,6 @@
 package com.tongbanjie.baymax.jdbc.merge.agg;
 
+import com.tongbanjie.baymax.exception.BayMaxException;
 import com.tongbanjie.baymax.jdbc.TStatement;
 import com.tongbanjie.baymax.jdbc.merge.MergeColumn;
 import com.tongbanjie.baymax.router.model.ExecutePlan;
@@ -21,6 +22,8 @@ public class AggResultSet extends AggResultSetGetterAdapter {
 
     Map<Integer/*columnIndex*/, String/*columnName*/> mergeColumnsIndex;
 
+    Map<String/*columnName*/, Boolean/*wasNull*/> wasNull;
+
     public AggResultSet(List<ResultSet> listResultSet, TStatement statement, ExecutePlan plan) throws SQLException {
         super(listResultSet, statement, plan);
         mergeColumns = plan.getMergeColumns();
@@ -37,6 +40,7 @@ public class AggResultSet extends AggResultSetGetterAdapter {
                 mergeColumnsIndex.put(i, name);
             }
         }
+        this.wasNull = new HashMap<String, Boolean>();
     }
 
     /**
@@ -82,12 +86,35 @@ public class AggResultSet extends AggResultSetGetterAdapter {
 
     @Override
     public <T> T merge(String columnLabel, Class<T> type) throws SQLException {
-        return AggMerger.merge(getResultSet(), mergeColumns, columnLabel, type);
+        T result = AggMerger.merge(getResultSet(), mergeColumns, columnLabel, type);
+        wasNull.put(columnLabel, result == null);
+        return result;
+
     }
 
     @Override
     public <T> T merge(int columnIndex, Class<T> type) throws SQLException {
-        return merge(mergeColumnsIndex.get(columnIndex), type);
+        T result = AggMerger.merge(getResultSet(), mergeColumns, mergeColumnsIndex.get(columnIndex), type);
+        wasNull.put(mergeColumnsIndex.get(columnIndex), result == null);
+        return result;
     }
 
+    @Override
+    public boolean wasNull() throws SQLException {
+        if(lastColumn.getObject1() != null && mergeColumns.containsKey(lastColumn.getObject1())){
+            return wasNull(lastColumn.getObject1());
+        }
+        if (lastColumn.getObject2() != null && mergeColumnsIndex.containsKey(lastColumn.getObject2())){
+            return wasNull(mergeColumnsIndex.get(lastColumn.getObject2()));
+        }
+        return super.wasNull();
+    }
+
+    private boolean wasNull(String columnName){
+        Boolean n = wasNull.get(columnName);
+        if (n == null){
+            throw new BayMaxException("调用 wasNull 前，必须先get!");
+        }
+        return n;
+    }
 }

@@ -68,6 +68,8 @@ public class SelectTest {
 
         test("select * from t_order where order_id = 1002 and user_id = 2");
 
+        test("select * from t_order");
+
 
     }
 

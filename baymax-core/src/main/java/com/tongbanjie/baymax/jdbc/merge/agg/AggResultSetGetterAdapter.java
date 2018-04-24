@@ -1,9 +1,9 @@
 package com.tongbanjie.baymax.jdbc.merge.agg;
 
-import com.tongbanjie.baymax.jdbc.TResultSet;
 import com.tongbanjie.baymax.jdbc.TResultSetLimit;
 import com.tongbanjie.baymax.jdbc.TStatement;
 import com.tongbanjie.baymax.router.model.ExecutePlan;
+import com.tongbanjie.baymax.utils.Pair;
 
 import java.io.InputStream;
 import java.io.Reader;
@@ -16,6 +16,7 @@ import java.util.Map;
 
 public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
+    protected Pair<String, Integer> lastColumn = null;
 
     public AggResultSetGetterAdapter(List<ResultSet> listResultSet, TStatement statement, ExecutePlan plan) {
         super(listResultSet, statement, plan);
@@ -33,6 +34,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public String getString(int columnIndex) throws SQLException {
+        lastColumn = new Pair<String, Integer>(null, columnIndex);
 		if (isAggColumn(columnIndex)) {
             return merge(columnIndex, String.class);
 		} else {
@@ -42,6 +44,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public boolean getBoolean(int columnIndex) throws SQLException {
+        lastColumn = new Pair<String, Integer>(null, columnIndex);
         if (isAggColumn(columnIndex)) {
             return merge(columnIndex, boolean.class);
 		} else {
@@ -51,6 +54,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public byte getByte(int columnIndex) throws SQLException {
+        lastColumn = new Pair<String, Integer>(null, columnIndex);
         if (isAggColumn(columnIndex)) {
             return merge(columnIndex, byte.class);
 		} else {
@@ -60,6 +64,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public short getShort(int columnIndex) throws SQLException {
+        lastColumn = new Pair<String, Integer>(null, columnIndex);
         if (isAggColumn(columnIndex)) {
             return merge(columnIndex, short.class);
 		} else {
@@ -69,6 +74,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public int getInt(int columnIndex) throws SQLException {
+        lastColumn = new Pair<String, Integer>(null, columnIndex);
         if (isAggColumn(columnIndex)) {
             return merge(columnIndex, int.class);
 		} else {
@@ -78,6 +84,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public long getLong(int columnIndex) throws SQLException {
+        lastColumn = new Pair<String, Integer>(null, columnIndex);
         if (isAggColumn(columnIndex)) {
             return merge(columnIndex, long.class);
 		} else {
@@ -87,6 +94,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public float getFloat(int columnIndex) throws SQLException {
+        lastColumn = new Pair<String, Integer>(null, columnIndex);
         if (isAggColumn(columnIndex)) {
             return merge(columnIndex, float.class);
 		} else {
@@ -96,6 +104,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public double getDouble(int columnIndex) throws SQLException {
+        lastColumn = new Pair<String, Integer>(null, columnIndex);
         if (isAggColumn(columnIndex)) {
             return merge(columnIndex, double.class);
 		} else {
@@ -105,6 +114,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public BigDecimal getBigDecimal(int columnIndex, int scale) throws SQLException {
+        lastColumn = new Pair<String, Integer>(null, columnIndex);
         if (isAggColumn(columnIndex)) {
             return merge(columnIndex, BigDecimal.class);
 		} else {
@@ -114,6 +124,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public byte[] getBytes(int columnIndex) throws SQLException {
+        lastColumn = new Pair<String, Integer>(null, columnIndex);
         if (isAggColumn(columnIndex)) {
             return merge(columnIndex, byte[].class);
 		} else {
@@ -123,6 +134,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public Date getDate(int columnIndex) throws SQLException {
+        lastColumn = new Pair<String, Integer>(null, columnIndex);
         if (isAggColumn(columnIndex)) {
             return merge(columnIndex, Date.class);
 		} else {
@@ -132,6 +144,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public Time getTime(int columnIndex) throws SQLException {
+        lastColumn = new Pair<String, Integer>(null, columnIndex);
         if (isAggColumn(columnIndex)) {
             return merge(columnIndex, Time.class);
 		} else {
@@ -141,6 +154,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public Timestamp getTimestamp(int columnIndex) throws SQLException {
+        lastColumn = new Pair<String, Integer>(null, columnIndex);
         if (isAggColumn(columnIndex)) {
             return merge(columnIndex, Timestamp.class);
 		} else {
@@ -150,6 +164,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public InputStream getAsciiStream(int columnIndex) throws SQLException {
+        lastColumn = new Pair<String, Integer>(null, columnIndex);
         if (isAggColumn(columnIndex)) {
             return merge(columnIndex, InputStream.class);
 		} else {
@@ -160,6 +175,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 	@SuppressWarnings("deprecation")
 	@Override
 	public InputStream getUnicodeStream(int columnIndex) throws SQLException {
+        lastColumn = new Pair<String, Integer>(null, columnIndex);
         if (isAggColumn(columnIndex)) {
             return merge(columnIndex, InputStream.class);
 		} else {
@@ -169,6 +185,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public InputStream getBinaryStream(int columnIndex) throws SQLException {
+        lastColumn = new Pair<String, Integer>(null, columnIndex);
         if (isAggColumn(columnIndex)) {
             return merge(columnIndex, InputStream.class);
 		} else {
@@ -178,6 +195,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public String getString(String columnLabel) throws SQLException {
+        lastColumn = new Pair<String, Integer>(columnLabel, null);
         if (isAggColumn(columnLabel)) {
             return merge(columnLabel, String.class);
         } else {
@@ -187,6 +205,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public boolean getBoolean(String columnLabel) throws SQLException {
+        lastColumn = new Pair<String, Integer>(columnLabel, null);
         if (isAggColumn(columnLabel)) {
             return merge(columnLabel, boolean.class);
         } else {
@@ -196,6 +215,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public byte getByte(String columnLabel) throws SQLException {
+        lastColumn = new Pair<String, Integer>(columnLabel, null);
         if (isAggColumn(columnLabel)) {
             return merge(columnLabel, byte.class);
         } else {
@@ -205,6 +225,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public short getShort(String columnLabel) throws SQLException {
+        lastColumn = new Pair<String, Integer>(columnLabel, null);
         if (isAggColumn(columnLabel)) {
             return merge(columnLabel, short.class);
         } else {
@@ -214,6 +235,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public int getInt(String columnLabel) throws SQLException {
+        lastColumn = new Pair<String, Integer>(columnLabel, null);
         if (isAggColumn(columnLabel)) {
             return merge(columnLabel, int.class);
         } else {
@@ -223,6 +245,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public long getLong(String columnLabel) throws SQLException {
+        lastColumn = new Pair<String, Integer>(columnLabel, null);
         if (isAggColumn(columnLabel)) {
             return merge(columnLabel, long.class);
         } else {
@@ -232,6 +255,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public float getFloat(String columnLabel) throws SQLException {
+        lastColumn = new Pair<String, Integer>(columnLabel, null);
         if (isAggColumn(columnLabel)) {
             return merge(columnLabel, float.class);
         } else {
@@ -241,6 +265,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public double getDouble(String columnLabel) throws SQLException {
+        lastColumn = new Pair<String, Integer>(columnLabel, null);
         if (isAggColumn(columnLabel)) {
             return merge(columnLabel, double.class);
         } else {
@@ -251,6 +276,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 	@SuppressWarnings("deprecation")
 	@Override
 	public BigDecimal getBigDecimal(String columnLabel, int scale) throws SQLException {
+        lastColumn = new Pair<String, Integer>(columnLabel, null);
         if (isAggColumn(columnLabel)) {
             return merge(columnLabel, BigDecimal.class);
         } else {
@@ -260,6 +286,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public byte[] getBytes(String columnLabel) throws SQLException {
+        lastColumn = new Pair<String, Integer>(columnLabel, null);
         if (isAggColumn(columnLabel)) {
             return merge(columnLabel, byte[].class);
         } else {
@@ -269,6 +296,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public Date getDate(String columnLabel) throws SQLException {
+        lastColumn = new Pair<String, Integer>(columnLabel, null);
         if (isAggColumn(columnLabel)) {
             return merge(columnLabel, Date.class);
         } else {
@@ -278,6 +306,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public Time getTime(String columnLabel) throws SQLException {
+        lastColumn = new Pair<String, Integer>(columnLabel, null);
         if (isAggColumn(columnLabel)) {
             return merge(columnLabel, Time.class);
         } else {
@@ -287,6 +316,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public Timestamp getTimestamp(String columnLabel) throws SQLException {
+        lastColumn = new Pair<String, Integer>(columnLabel, null);
         if (isAggColumn(columnLabel)) {
             return merge(columnLabel, Timestamp.class);
         } else {
@@ -296,6 +326,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public InputStream getAsciiStream(String columnLabel) throws SQLException {
+        lastColumn = new Pair<String, Integer>(columnLabel, null);
         if (isAggColumn(columnLabel)) {
             return merge(columnLabel, InputStream.class);
         } else {
@@ -306,6 +337,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 	@SuppressWarnings("deprecation")
 	@Override
 	public InputStream getUnicodeStream(String columnLabel) throws SQLException {
+        lastColumn = new Pair<String, Integer>(columnLabel, null);
         if (isAggColumn(columnLabel)) {
             return merge(columnLabel, InputStream.class);
         } else {
@@ -315,6 +347,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public InputStream getBinaryStream(String columnLabel) throws SQLException {
+        lastColumn = new Pair<String, Integer>(columnLabel, null);
         if (isAggColumn(columnLabel)) {
             return merge(columnLabel, InputStream.class);
         } else {
@@ -324,6 +357,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public Object getObject(int columnIndex) throws SQLException {
+        lastColumn = new Pair<String, Integer>(null, columnIndex);
         if (isAggColumn(columnIndex)) {
             return merge(columnIndex, Object.class);
         } else {
@@ -333,6 +367,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public Object getObject(String columnLabel) throws SQLException {
+        lastColumn = new Pair<String, Integer>(columnLabel, null);
         if (isAggColumn(columnLabel)) {
             return merge(columnLabel, Object.class);
         } else {
@@ -342,6 +377,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public Reader getCharacterStream(int columnIndex) throws SQLException {
+        lastColumn = new Pair<String, Integer>(null, columnIndex);
         if (isAggColumn(columnIndex)) {
             return merge(columnIndex, Reader.class);
         } else {
@@ -351,6 +387,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public Reader getCharacterStream(String columnLabel) throws SQLException {
+        lastColumn = new Pair<String, Integer>(columnLabel, null);
         if (isAggColumn(columnLabel)) {
             return merge(columnLabel, Reader.class);
         } else {
@@ -360,6 +397,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public BigDecimal getBigDecimal(int columnIndex) throws SQLException {
+        lastColumn = new Pair<String, Integer>(null, columnIndex);
         if (isAggColumn(columnIndex)) {
             return merge(columnIndex, BigDecimal.class);
         } else {
@@ -369,6 +407,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public BigDecimal getBigDecimal(String columnLabel) throws SQLException {
+        lastColumn = new Pair<String, Integer>(columnLabel, null);
         if (isAggColumn(columnLabel)) {
             return merge(columnLabel, BigDecimal.class);
         } else {
@@ -378,6 +417,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public Object getObject(int columnIndex, Map<String, Class<?>> map) throws SQLException {
+        lastColumn = new Pair<String, Integer>(null, columnIndex);
         if (isAggColumn(columnIndex)) {
             return merge(columnIndex, Object.class);
         } else {
@@ -387,6 +427,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public Ref getRef(int columnIndex) throws SQLException {
+        lastColumn = new Pair<String, Integer>(null, columnIndex);
         if (isAggColumn(columnIndex)) {
             return merge(columnIndex, Ref.class);
         } else {
@@ -396,6 +437,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public Blob getBlob(int columnIndex) throws SQLException {
+        lastColumn = new Pair<String, Integer>(null, columnIndex);
         if (isAggColumn(columnIndex)) {
             return merge(columnIndex, Blob.class);
         } else {
@@ -405,6 +447,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public Clob getClob(int columnIndex) throws SQLException {
+        lastColumn = new Pair<String, Integer>(null, columnIndex);
         if (isAggColumn(columnIndex)) {
             return merge(columnIndex, Clob.class);
         } else {
@@ -414,6 +457,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public Array getArray(int columnIndex) throws SQLException {
+        lastColumn = new Pair<String, Integer>(null, columnIndex);
         if (isAggColumn(columnIndex)) {
             return merge(columnIndex, Array.class);
         } else {
@@ -423,6 +467,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public Object getObject(String columnLabel, Map<String, Class<?>> map) throws SQLException {
+        lastColumn = new Pair<String, Integer>(columnLabel, null);
         if (isAggColumn(columnLabel)) {
             return merge(columnLabel, Object.class);
         } else {
@@ -432,6 +477,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public Ref getRef(String columnLabel) throws SQLException {
+        lastColumn = new Pair<String, Integer>(columnLabel, null);
         if (isAggColumn(columnLabel)) {
             return merge(columnLabel, Ref.class);
         } else {
@@ -441,6 +487,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public Blob getBlob(String columnLabel) throws SQLException {
+        lastColumn = new Pair<String, Integer>(columnLabel, null);
         if (isAggColumn(columnLabel)) {
             return merge(columnLabel, Blob.class);
         } else {
@@ -450,6 +497,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public Clob getClob(String columnLabel) throws SQLException {
+        lastColumn = new Pair<String, Integer>(columnLabel, null);
         if (isAggColumn(columnLabel)) {
             return merge(columnLabel, Clob.class);
         } else {
@@ -459,6 +507,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public Array getArray(String columnLabel) throws SQLException {
+        lastColumn = new Pair<String, Integer>(columnLabel, null);
         if (isAggColumn(columnLabel)) {
             return merge(columnLabel, Array.class);
         } else {
@@ -468,6 +517,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public Date getDate(int columnIndex, Calendar cal) throws SQLException {
+        lastColumn = new Pair<String, Integer>(null, columnIndex);
         if (isAggColumn(columnIndex)) {
             return merge(columnIndex, Date.class);
         } else {
@@ -477,6 +527,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public Date getDate(String columnLabel, Calendar cal) throws SQLException {
+        lastColumn = new Pair<String, Integer>(columnLabel, null);
         if (isAggColumn(columnLabel)) {
             return merge(columnLabel, Date.class);
         } else {
@@ -486,6 +537,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public Time getTime(int columnIndex, Calendar cal) throws SQLException {
+        lastColumn = new Pair<String, Integer>(null, columnIndex);
         if (isAggColumn(columnIndex)) {
             return merge(columnIndex, Time.class);
         } else {
@@ -495,6 +547,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public Time getTime(String columnLabel, Calendar cal) throws SQLException {
+        lastColumn = new Pair<String, Integer>(columnLabel, null);
         if (isAggColumn(columnLabel)) {
             return merge(columnLabel, Time.class);
         } else {
@@ -504,6 +557,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public Timestamp getTimestamp(int columnIndex, Calendar cal) throws SQLException {
+        lastColumn = new Pair<String, Integer>(null, columnIndex);
         if (isAggColumn(columnIndex)) {
             return merge(columnIndex, Timestamp.class);
         } else {
@@ -513,6 +567,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public Timestamp getTimestamp(String columnLabel, Calendar cal) throws SQLException {
+        lastColumn = new Pair<String, Integer>(columnLabel, null);
         if (isAggColumn(columnLabel)) {
             return merge(columnLabel, Timestamp.class);
         } else {
@@ -522,6 +577,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public URL getURL(int columnIndex) throws SQLException {
+        lastColumn = new Pair<String, Integer>(null, columnIndex);
         if (isAggColumn(columnIndex)) {
             return merge(columnIndex, URL.class);
         } else {
@@ -531,6 +587,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public URL getURL(String columnLabel) throws SQLException {
+        lastColumn = new Pair<String, Integer>(columnLabel, null);
         if (isAggColumn(columnLabel)) {
             return merge(columnLabel, URL.class);
         } else {
@@ -540,6 +597,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public NClob getNClob(int columnIndex) throws SQLException {
+        lastColumn = new Pair<String, Integer>(null, columnIndex);
         if (isAggColumn(columnIndex)) {
             return merge(columnIndex, NClob.class);
         } else {
@@ -549,6 +607,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public NClob getNClob(String columnLabel) throws SQLException {
+        lastColumn = new Pair<String, Integer>(columnLabel, null);
         if (isAggColumn(columnLabel)) {
             return merge(columnLabel, NClob.class);
         } else {
@@ -558,6 +617,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public SQLXML getSQLXML(int columnIndex) throws SQLException {
+        lastColumn = new Pair<String, Integer>(null, columnIndex);
         if (isAggColumn(columnIndex)) {
             return merge(columnIndex, SQLXML.class);
         } else {
@@ -567,6 +627,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public SQLXML getSQLXML(String columnLabel) throws SQLException {
+        lastColumn = new Pair<String, Integer>(columnLabel, null);
         if (isAggColumn(columnLabel)) {
             return merge(columnLabel, SQLXML.class);
         } else {
@@ -576,6 +637,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public String getNString(int columnIndex) throws SQLException {
+        lastColumn = new Pair<String, Integer>(null, columnIndex);
         if (isAggColumn(columnIndex)) {
             return merge(columnIndex, String.class);
         } else {
@@ -585,6 +647,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public String getNString(String columnLabel) throws SQLException {
+        lastColumn = new Pair<String, Integer>(columnLabel, null);
         if (isAggColumn(columnLabel)) {
             return merge(columnLabel, String.class);
         } else {
@@ -594,6 +657,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public Reader getNCharacterStream(int columnIndex) throws SQLException {
+        lastColumn = new Pair<String, Integer>(null, columnIndex);
         if (isAggColumn(columnIndex)) {
             return merge(columnIndex, Reader.class);
         } else {
@@ -603,6 +667,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
 
 	@Override
 	public Reader getNCharacterStream(String columnLabel) throws SQLException {
+        lastColumn = new Pair<String, Integer>(columnLabel, null);
         if (isAggColumn(columnLabel)) {
             return merge(columnLabel, Reader.class);
         } else {
@@ -639,6 +704,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
      * @since 1.7
      */
     public <T> T getObject(int columnIndex, Class<T> type) throws SQLException {
+        lastColumn = new Pair<String, Integer>(null, columnIndex);
         if (isAggColumn(columnIndex)) {
             return merge(columnIndex, type);
         } else {
@@ -674,6 +740,7 @@ public abstract class AggResultSetGetterAdapter extends TResultSetLimit {
      * @since 1.7
      */
     public <T> T getObject(String columnLabel, Class<T> type) throws SQLException {
+        lastColumn = new Pair<String, Integer>(columnLabel, null);
         if (isAggColumn(columnLabel)) {
             return merge(columnLabel, type);
         } else {

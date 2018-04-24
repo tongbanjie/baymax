@@ -23,7 +23,7 @@ public class GroupbyTest {
 
        test("select user_id  from t_order t group by user_id");
        test("select user_id  from t_order t group by user_id order by user_id desc");
-       test("select user_id  from t_order t where order_id = 1 group by user_id order by user_id desc");
+       test("select user_id  from t_order t where order_id = 1000 group by user_id order by user_id desc");
 	}
 
     public void test(String sql) throws SQLException {

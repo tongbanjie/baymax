@@ -24,7 +24,7 @@ public class AggTest {
     @Test
 	public void test_00() throws SQLException, InterruptedException{
        new Jdbc(dataSource)
-        .executeSelect("select sum(user_id) from t_order")
+        .executeSelect("select sum(user_id) from t_order where status=1")
         .printSet().close();
 	}
 
@@ -42,4 +42,10 @@ public class AggTest {
                 .printSet().close();
     }
 
+    @Test
+    public void test_1() throws SQLException, InterruptedException{
+        new Jdbc(dataSource)
+                .executeSelect("select count(order_id) as c1,sum(order_id) as s1 from t_order group by user_id order by user_id asc")
+                .printSet().close();
+    }
 }

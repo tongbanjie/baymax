@@ -120,6 +120,7 @@ public class Jdbc {
             for (int i = 1; i <= count; i++) {
                 Object obj = resultSet.getObject(i);
                 System.out.print(obj);
+                System.out.print("(" + resultSet.wasNull() + ")");
                 System.out.print(getSpan(obj));
             }
             System.out.println();

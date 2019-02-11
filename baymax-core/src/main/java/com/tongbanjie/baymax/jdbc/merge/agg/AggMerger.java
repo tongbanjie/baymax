@@ -72,9 +72,15 @@ public class AggMerger extends MergeMath{
      */
     public static Object mergeMin(List<ResultSet> sets, String alias) throws SQLException {
         BigDecimal number = null;
+        boolean first = true;
         for (int i = 0; i < sets.size(); i++){
             BigDecimal value = sets.get(i).getBigDecimal(alias);
-            number = min(number, value);
+            if(first){
+                number = value;
+                first = false;
+            }else {
+                number = min(number, value);
+            }
         }
         return number;
     }

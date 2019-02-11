@@ -31,6 +31,7 @@ public class InsertTest {
         jdbc.doInTransaction(new Jdbc.DoInTransaction() {
             @Override
             public void call() throws SQLException, InterruptedException {
+                // order_id,user_id,product_id,product_name,status
                 test(1000, 0, 1, "prodtct1", 1);
                 test(1001,1,1,"prodtct1",1);
                 test(1002,2,1,"prodtct1",1);
@@ -41,10 +42,10 @@ public class InsertTest {
                 test(2002,2,1,"prodtct1",1);
                 test(2003,3,1,"prodtct1",1);
 
-                test(3000,30,1,"prodtct1",1);
-                test(3001,31,1,"prodtct1",1);
-                test(3002,32,1,"prodtct1",1);
-                test(3003, 33, 1, "prodtct1", 1);
+                test(3000,0,1,"prodtct1",1);
+                test(3001,1,1,"prodtct1",1);
+                test(3002,2,1,"prodtct1",1);
+                test(3003, 3, 1, "prodtct1", 1);
             }
         });
         jdbc.close();
@@ -73,5 +74,17 @@ public class InsertTest {
     public void test1() throws SQLException, InterruptedException {
         jdbc = new Jdbc(dataSource);
         int effctCount = jdbc.executeUpdate("INSERT INTO `t_order`(status) VALUES (1);").getEffectCount();
+    }
+
+    @Test
+    public void update1() throws SQLException, InterruptedException {
+        jdbc = new Jdbc(dataSource);
+        int effctCount = jdbc.executeUpdate("update t_order set product_name = '001' where user_id=2").getEffectCount();
+    }
+
+    @Test
+    public void updateAll() throws SQLException, InterruptedException {
+        jdbc = new Jdbc(dataSource);
+        int effctCount = jdbc.executeUpdate("update t_order set product_name = '002' ").getEffectCount();
     }
 }

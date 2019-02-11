@@ -32,6 +32,19 @@ public class DeleteTest {
 	}
 
     @Test
+    public void test1() throws SQLException, InterruptedException{
+
+        int effctCount = new Jdbc(dataSource).executeUpdate("DELETE FROM t_order where user_id = 1", new Jdbc.PrepareSetting() {
+            @Override
+            public void set(PreparedStatement statement) throws SQLException {
+            }
+        }).close().getEffectCount();
+
+
+        System.out.println(effctCount);
+    }
+
+    @Test
     public void test_all() throws SQLException, InterruptedException{
 
         int effctCount = new Jdbc(dataSource).executeUpdate("DELETE FROM t_order", new Jdbc.PrepareSetting() {

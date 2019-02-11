@@ -29,10 +29,6 @@ public class GroupbyValue implements OrderByComparetor.CompareEntity{
 
     private boolean wasNull;
 
-    public GroupbyValue(ResultSet set, GroupbyMetaData metaData, Map<String, MergeColumn.MergeType> aggColumns) throws SQLException {
-        this(set, metaData, aggColumns, null);
-    }
-
     /**
      *
      * @param set       当前这行数据的来源
@@ -57,7 +53,7 @@ public class GroupbyValue implements OrderByComparetor.CompareEntity{
                         int countlabel = metaData.getColumnIndex(columnLabel + "COUNT");
 
                         valus[i] = GroupbyAggMerger.mergeAvg(
-                                (BigDecimal)valus[sumlabel],            (BigDecimal)valus[countlabel],
+                                set.getBigDecimal(sumlabel),            set.getBigDecimal(countlabel),
                                 (BigDecimal)other.getValus()[sumlabel], (BigDecimal)other.getValus()[countlabel],
                                 mergeType);
                     }else {

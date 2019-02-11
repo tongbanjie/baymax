@@ -172,7 +172,7 @@ public class TPreparedStatement extends UnsupportedPreparedStatementAdapter {
 
 	@Override
 	public void setObject(int parameterIndex, Object x, int targetSqlType) throws SQLException {
-		parameterSettings.put(parameterIndex, new ParameterCommand(ParameterMethod.setObject3, new Object[] { parameterIndex, x, targetSqlType }));
+		parameterSettings.put(parameterIndex, new ParameterCommand(ParameterMethod.setObject2, new Object[] { parameterIndex, x, targetSqlType }));
 	}
 
 	@Override

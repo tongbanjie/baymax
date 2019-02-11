@@ -5,8 +5,7 @@
 
 	<groupId>com.tongbanjie.baymax</groupId>
 	<artifactId>baymax</artifactId>
-	<!-- <version>2.0.0-SNAPSHOT</version> -->
-	<version>3.0.1</version>
+	<version>3.0.2</version>
 	<packaging>pom</packaging>
 
 	<name>baymax</name>
@@ -14,7 +13,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<baymax.version>3.0.1</baymax.version>
+		<baymax.version>3.0.2</baymax.version>
 	</properties>
 
 	<modules>

@@ -68,7 +68,7 @@
 		<repository>
 			<id>nexus-releases</id>
 			<name>local private releases</name>
-			<url>http://192.168.1.6:8081/nexus/content/repositories/releases</url>
+			<url>https://192.168.1.6:8081/nexus/content/repositories/releases</url>
 		</repository>
 	</distributionManagement>
 
